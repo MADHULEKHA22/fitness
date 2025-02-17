@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthy and Fitness</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <h1>FitLife</h1>
+                <p>Your path to a healthier life</p>
+            </div>
+            <nav class="navbar">
+                <ul class="nav-links">
+                    <li><a href="#" onclick="showDietPlans()">Diet Plans</a></li>
+                    <li><a href="#" onclick="showProfile()">Profile</a></li>
+                    <li><a href="menu.html">Menu</a></li>
+                    <li><a href="#reviews">Reviews</a></li>
+                    <li><a href="#language">English</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="hero">
+        <video autoplay muted loop class="bg-video">
+            <source src="3125907-uhd_3840_2160_25fps.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+
+        <!-- Content Over the Video -->
+        <div class="content-container">
+            <!-- Left Slogan Section -->
+            <div class="left-slogan">
+                <h2>Empower Your Body</h2>
+                <p>Transform yourself with healthy habits and fitness goals.</p>
+            </div>
+
+            <!-- Right Side Content (Sign In, Diet Plans, Profile) -->
+            <div class="right-content">
+                <!-- Sign In Form -->
+                <div class="overlay" id="signin-form">
+                    <div class="sigin-container">
+                        <h2>Sign In</h2>
+                        <input type="text" id="username" placeholder="Enter your name" required>
+                        <input type="email" id="email" placeholder="Enter your email" required> <!-- Email field added -->
+                        <input type="password" id="password" placeholder="Enter password (min 6 characters)" required>
+                        <button onclick="showDietPlans()">Sign In</button>
+                    </div>
+                </div>
+                
+
+                <!-- Diet Plans Section -->
+                <div class="overlay hidden diet-section" id="diet-plans">
+                    <h2>Select Your Diet Plans</h2>
+                    <div class="diet-options">
+                        <label class="diet-card">
+                            <input type="checkbox" name="diet" value="Weight Gain"> 
+                            <img src="gain-weight.png" alt="Weight Gain">
+                            <h3>Weight Gain</h3>
+                        </label>
+                        <label class="diet-card">
+                            <input type="checkbox" name="diet" value="Weight Loss"> 
+                            <img src="waist.png" alt="Weight Loss">
+                            <h3>Weight Loss</h3>
+                        </label>
+                        <label class="diet-card">
+                            <input type="checkbox" name="diet" value="Muscle Gain"> 
+                            <img src="muscle.png" alt="Muscle Gain">
+                            <h3>Muscle Gain</h3>
+                        </label>
+                    </div>
+                    <button onclick="showProfile()">Next</button>
+                </div>
+
+                <!-- Profile Section -->
+                <section id="profile" class="hidden profile-section">
+                    <h2>Profile Information</h2>
+                    <form>
+                        <input type="text" id="name" placeholder="Name" required>
+                        <input type="number" id="age" placeholder="Age" required>
+                        <select id="gender">
+                            <option value="">Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <input type="number" id="height" placeholder="Height (cm)" required>
+                        <input type="number" id="weight" placeholder="Weight (kg)" required>
+                        <button type="button" onclick="goToMenu()">Next</button>
+
+<script>
+    function goToMenu() {
+        window.location.href = "menu.html";
+    }
+</script>
+
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    let menuLink = document.querySelector('a[href="menu.html"]');
+
+    if (menuLink) {
+        menuLink.addEventListener("click", function (event) {
+            event.preventDefault(); // Stop direct navigation
+            checkMenuAccess();
+        });
+    }
+
+    // Block direct access to menu.html
+    if (window.location.pathname.includes("menu.html")) {
+        let signedIn = localStorage.getItem("signedIn") === "true";
+        let dietSelected = localStorage.getItem("dietSelected") === "true";
+        let profileCompleted = localStorage.getItem("profileCompleted") === "true";
+
+        if (!(signedIn && dietSelected && profileCompleted)) {
+            alert("Access denied! Complete Sign In, Diet Plan, and Profile before accessing the Menu.");
+            window.location.href = "index.html"; // Redirect to home
+        }
+    }
+});
+
+function showDietPlans() {
+    let username = document.getElementById("username").value.trim();
+    let email = document.getElementById("email").value.trim();
+    let password = document.getElementById("password").value.trim();
+    
+    let emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    let errorMessages = [];
+
+    if (!username) errorMessages.push("Please enter your name.");
+    if (!emailPattern.test(email)) errorMessages.push("Please enter a valid email.");
+    if (password.length < 6) errorMessages.push("Password must be at least 6 characters long.");
+
+    if (errorMessages.length > 0) {
+        alert(errorMessages.join("\n"));
+        return;
+    }
+
+    localStorage.setItem("signedIn", "true");
+    document.getElementById("signin-form").classList.add("hidden");
+    document.getElementById("diet-plans").classList.remove("hidden");
+}
+
+function showProfile() {
+    let checkboxes = document.querySelectorAll('input[name="diet"]:checked');
+
+    if (checkboxes.length > 0) {
+        localStorage.setItem("dietSelected", "true");
+        document.getElementById("diet-plans").classList.add("hidden");
+        document.getElementById("profile").classList.remove("hidden");
+    } else {
+        alert("Please select at least one diet plan.");
+    }
+}
+
+function goToMenu() {
+    let name = document.getElementById("name").value.trim();
+    let age = document.getElementById("age").value.trim();
+    let gender = document.getElementById("gender").value;
+    let height = document.getElementById("height").value.trim();
+    let weight = document.getElementById("weight").value.trim();
+
+    if (!name || !age || !gender || !height || !weight) {
+        alert("Please fill all profile details.");
+        return;
+    }
+
+    localStorage.setItem("profileCompleted", "true");
+    checkMenuAccess();
+}
+
+function checkMenuAccess() {
+    let signedIn = localStorage.getItem("signedIn") === "true";
+    let dietSelected = localStorage.getItem("dietSelected") === "true";
+    let profileCompleted = localStorage.getItem("profileCompleted") === "true";
+
+    if (signedIn && dietSelected && profileCompleted) {
+        window.location.href = "menu.html";
+    } else {
+        alert("Please complete Sign In, select a Diet Plan, and fill in Profile before accessing the Menu.");
+    }
+}
+
+
+</script> 
+</body>
+</html>

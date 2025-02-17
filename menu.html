@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthy and Fitness</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <h1>FitLife</h1>
+                <p>Your path to a healthier life</p>
+            </div>
+            <nav class="navbar">
+                <ul class="nav-links">
+                    <li><a href="home.html">home</a></li>
+                    <li><a href="#" onclick="showProfile()">Profile</a></li>
+                    <li><a href="#menu">Menu</a></li>
+                    <li><a href="#reviews">Reviews</a></li>
+                    <li><a href="#language">English</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="menu" class="menu-section">
+        <h2>Select Your Meals</h2>
+        <div class="meal-container">
+            <div class="meal-category">
+                <h3>Breakfast</h3>
+                <label><input type="checkbox" name="breakfast" value="Oatmeal"> Oatmeal</label>
+                <label><input type="checkbox" name="breakfast" value="Eggs"> Eggs</label>
+                <label><input type="checkbox" name="breakfast" value="Smoothie"> Smoothie</label>
+                <label><input type="checkbox" name="breakfast" value="Pancakes"> Pancakes</label>
+                <label><input type="checkbox" name="breakfast" value="Toast"> Toast</label>
+            </div>
+            <div class="meal-category">
+                <h3>Lunch</h3>
+                <label><input type="checkbox" name="lunch" value="Salad"> Salad</label>
+                <label><input type="checkbox" name="lunch" value="Chicken Breast"> Chicken Breast</label>
+                <label><input type="checkbox" name="lunch" value="Rice & Beans"> Rice & Beans</label>
+                <label><input type="checkbox" name="lunch" value="Pasta"> Pasta</label>
+                <label><input type="checkbox" name="lunch" value="Grilled Vegetables"> Grilled Vegetables</label>
+            </div>
+            <div class="meal-category">
+                <h3>Dinner</h3>
+                <label><input type="checkbox" name="dinner" value="Grilled Fish"> Grilled Fish</label>
+                <label><input type="checkbox" name="dinner" value="Soup"> Soup</label>
+                <label><input type="checkbox" name="dinner" value="Vegetables"> Vegetables</label>
+                <label><input type="checkbox" name="dinner" value="Steak"> Steak</label>
+                <label><input type="checkbox" name="dinner" value="Stir-fry"> Stir-fry</label>
+            </div>
+        </div>
+        <input type="text" class="meal-input" placeholder="Enter your custom meal">
+        <button onclick="submitMeals()">Submit</button>
+    </section>
+
+    <script>
+        function submitMeals() {
+            let meals = {
+                breakfast: [],
+                lunch: [],
+                dinner: []
+            };
+            document.querySelectorAll('input[name="breakfast"]:checked').forEach(el => meals.breakfast.push(el.value));
+            document.querySelectorAll('input[name="lunch"]:checked').forEach(el => meals.lunch.push(el.value));
+            document.querySelectorAll('input[name="dinner"]:checked').forEach(el => meals.dinner.push(el.value));
+            alert("Your selected meals:\n" + 
+                "Breakfast: " + meals.breakfast.join(", ") + "\n" +
+                "Lunch: " + meals.lunch.join(", ") + "\n" +
+                "Dinner: " + meals.dinner.join(", "));
+        }
+    </script>
+</body>
+</html>

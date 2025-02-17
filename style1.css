@@ -1,0 +1,51 @@
+/* Background Image */
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: url('healthy-food.jpg') no-repeat center center/cover;
+    z-index: -1;
+}
+
+/* Centered Meal Selection Box */
+.meal-container {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 50%;
+    margin: auto;
+}
+
+.meal-section {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.meal-section h3 {
+    color: black;
+    font-size: 1.5rem;
+}
+
+.meal-section label {
+    display: block;
+    margin: 5px 0;
+    font-size: 1.2rem;
+}
+
+button {
+    background: #28a745;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+button:hover {
+    background: #218838;
+}
